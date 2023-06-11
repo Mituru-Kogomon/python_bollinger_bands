@@ -1,7 +1,7 @@
-# python_bollinger_bands
-Stock trading with Bollinger Bands in python. For Study
 
 # 株価は95.4%の確立でボリンジャーバンド±2σの範囲内に収まる
+
+For my python study. Stock trading with Bollinger Bands.
 
 **仮説** 4.6%でしか負けないならボリンジャーバンドで売買すれば絶対に勝てる
 
@@ -52,19 +52,19 @@ Stock trading with Bollinger Bands in python. For Study
     df = pd.concat(data_list) #データフレームの結合
     df #データの確認
 ```
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/6a861925-34ae-322b-89e1-08cf0a911cd0.png)
-20年分の株価データを取得することが出来た
-調整後終値をプロットする
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/6a861925-34ae-322b-89e1-08cf0a911cd0.png)  
+20年分の株価データを取得することが出来た  
+調整後終値をプロットする  
 ```perl:"Adj Close" = 調整後終値
     import matplotlib.pyplot as plt
     df["Adj Close"].plot()
 ```
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/18158af2-5539-1738-2c18-66755458bc2c.png)
-2007年頃をピーク、2012年がボトムで、直近上昇傾向
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/18158af2-5539-1738-2c18-66755458bc2c.png)  
+2007年頃をピーク、2012年がボトムで、直近上昇傾向  
 
-:::note info
-調整後終値 = 株式分割前の終値を株式分割後の終値に調整したもの
-:::
+:::note info  
+調整後終値 = 株式分割前の終値を株式分割後の終値に調整したもの  
+:::  
 
 ## 移動平均線、 標準偏差、ボリンジャーバンド、乖離率の算出
 ```perl:25日移動平均線を基準とする
@@ -76,11 +76,11 @@ Stock trading with Bollinger Bands in python. For Study
     df['Bollinger bands-2'] = df['MA'] - (2*df['StdDev']) #ボリンジャーバンド-2σ
 ```
 データを視覚的に確認する
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/ab4a7de4-1147-f776-5490-950f634bc903.png)
-移動平均線が算出されるまでは NaN値 となっている
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/ab4a7de4-1147-f776-5490-950f634bc903.png)  
+移動平均線が算出されるまでは NaN値 となっている  
 
-20年分だとグラフが潰れて確認できない。
-ロシアのウクライナ進行付近、2022年1月から2023年6月までを範囲指定しグラフ化する
+20年分だとグラフが潰れて確認できない。  
+ロシアのウクライナ進行付近、2022年1月から2023年6月までを範囲指定しグラフ化する  
 ```perl:プロットの範囲指定
     start_date = '2022-01-01'
     end_date = '2023-06-06'
@@ -88,28 +88,28 @@ Stock trading with Bollinger Bands in python. For Study
     # 範囲指定のためのスライシング
     filtered_data = df.loc[start_date:end_date]
 ```
-**標準偏差**　
+**標準偏差**
 ```perl:データのプロット
     filtered_data['StdDev'].plot()
     plt.show() # プロットの表示
 ```
-戦争よりも金融危機のほうが反応している、直近は40円程度の利確は積極的に狙えそう
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/010d7476-05f3-35aa-6501-dad2336605c8.png)
+戦争よりも金融危機のほうが反応している、直近は40円程度の利確は積極的に狙えそう  
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/010d7476-05f3-35aa-6501-dad2336605c8.png)  
 **調整後終値、移動平均線、ボリンジャーバンド**
 ```perl:データのプロット
     filtered_data[['Bollinger bands+2','MA','Bollinger bands-2','Adj Close']].plot()
     plt.show() # プロットの表示
 ```
 ほぼボリンジャーバンドの内側に収まっているように見える
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/43228ab3-e07f-15b6-cd6c-7e88d422ff52.png)
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/43228ab3-e07f-15b6-cd6c-7e88d422ff52.png)  
 **移動平均線からの乖離率**
 ```perl:データのプロット
     filtered_data[['Deviation']].plot()
     plt.show() # プロットの表示
 ```
-±2σの範囲外で取引が終わる日数 522日間 × 4.6% = 24日間
-24日間よりも多く見える...と思う
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/1d644a41-00c3-de48-d01a-fbee3117ccaa.png)
+±2σの範囲外で取引が終わる日数 522日間 × 4.6% = 24日間  
+24日間よりも多く見える...と思う  
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/1d644a41-00c3-de48-d01a-fbee3117ccaa.png)  
 
 ## 売買ルール制定、バックテスト
 **売買ルール**
@@ -155,12 +155,12 @@ df = df.drop(df.index[i+1:])  # i行目以降の行を削除
 filtered_data = df[(df['Deviation'] >= 2) | (df['Deviation'] <= -2)][['Deviation','Signal','Position']]
 filtered_data.tail(10)
 ```
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/00691e0d-decc-cddb-78c5-8337858e3192.png)
-乖離率が -2以下の時に買いシグナル、買いポジション
-乖離率が -2以下だが買いポジションを持っているのでシグナルが出ていない
-乖離率が +2以上なので売りシグナル、ポジション解除
-乖離率が +2以上なので売りシグナル、売りポジション
-正しく動作している
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/00691e0d-decc-cddb-78c5-8337858e3192.png)  
+乖離率が -2以下の時に買いシグナル、買いポジション  
+乖離率が -2以下だが買いポジションを持っているのでシグナルが出ていない  
+乖離率が +2以上なので売りシグナル、ポジション解除  
+乖離率が +2以上なので売りシグナル、売りポジション  
+正しく動作している  
 
 ## リターンの算出
 ```perl:初期資本 100万年、1ポジション = 100株
@@ -180,44 +180,44 @@ df['Value'] = df['Cash'] + df['Portfolio']  # 総資産列を作成
 df['Returns'] = df['Value'].pct_change()  # リターン列を作成
 df['Cumulative Returns'] = (1 + df['Returns']).cumprod()  # 累積リターン列を作成
 ```
-:::note info
-Shares = 株数変化列
-Portfolio = 株式資産
-Cash = キャッシュ残高
-Value = 総資産
-Returns = リターン
-Cumulative Returns = 累積リターン
-:::
+:::note info  
+Shares = 株数変化列  
+Portfolio = 株式資産  
+Cash = キャッシュ残高  
+Value = 総資産  
+Returns = リターン  
+Cumulative Returns = 累積リターン  
+:::  
 
-結果を確認してみる
+結果を確認してみる  
 ```perl:バックテストの結果を表示
     print('Cumulative Returns:', df['Returns'].sum())
     print('Return:', df['Returns'].sum() * capital)  # リターンの計算
 ```
-Cumulative Returns: -0.26667785862970095
-Return: -266677.85862970096
-視覚的に確認する
+Cumulative Returns: -0.26667785862970095  
+Return: -266677.85862970096  
+視覚的に確認する  
 
 ```perl:プロットの設定
     plt.plot(df[['Returns','Cumulative Returns']])
     plt.legend(df[['Returns','Cumulative Returns']])
     plt.show()
 ```
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/e8b777ce-9176-d473-e0ae-d9c0128b0bd9.png)
-2006年から2008年にかけて上昇、
-上記以外の期間は損失を出している
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3471374/e8b777ce-9176-d473-e0ae-d9c0128b0bd9.png)  
+2006年から2008年にかけて上昇、  
+上記以外の期間は損失を出している  
 
 # 結論
-**－26万6000円**
-ボリンジャーバンドだけだと売買シグナルとしては使えない。
+**－26万6000円**  
+ボリンジャーバンドだけだと売買シグナルとしては使えない。  
 
-**最後までお読みいただき、ありがとうございました。**
+**最後までお読みいただき、ありがとうございました。**  
 
-:::note warn
-※条件を変えることで結果は変わります。
-    1. 銘柄を変える
-    2. ポジションを複数持つ
-    3. 初期資本を多くする
-    4. ロット数の調整
-    5. 損切の制定 etc...
-:::
+:::note warn  
+※条件を変えることで結果は変わります。  
+    1. 銘柄を変える  
+    2. ポジションを複数持つ  
+    3. 初期資本を多くする  
+    4. ロット数の調整  
+    5. 損切の制定 etc...  
+:::  
