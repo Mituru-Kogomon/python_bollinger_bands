@@ -1,7 +1,6 @@
-# python_bollinger_bands
-Stock trading with Bollinger Bands in python. For Study
-
 # 株価は95.4%の確立でボリンジャーバンド±2σの範囲内に収まる
+
+    エンジニア未経験、Qiita覚えたので初投稿
 
 **仮説** 4.6%でしか負けないならボリンジャーバンドで売買すれば絶対に勝てる
 
