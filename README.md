@@ -221,3 +221,14 @@ Return: -266677.85862970096
     4. ロット数の調整  
     5. 損切の制定 etc...  
 :::  
+
+## Licence ライセンス
+このプロジェクトは以下のオープンソースライブラリを使用しています。それぞれのライブラリは個別のライセンスで提供されています。  
+ライセンスの詳細については、各ライブラリの公式ウェブサイトを参照してください。  
+
+* pandas     : BSD License : https://pandas.pydata.org/  
+* Matplotlib : Matplotlib License (modified BSD style) : https://matplotlib.org/  
+* yfinance   : MIT License : https://pypi.org/project/yfinance/  
+* tqdm       : MIT License : https://github.com/tqdm/tqdm  
+
+このプロジェクトのソースコードおよび関連資料は、それぞれのライブラリのライセンスに従って提供されます。  
